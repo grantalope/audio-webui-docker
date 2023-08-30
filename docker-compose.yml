@@ -10,11 +10,12 @@ services:
       - venv:/app/audio-webui/venv
     command: "/app/run.sh"
     environment:
-      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_VISIBLE_DEVICES: all 
+      - ENABLE_CUDA: '1'  # Enable CUDA
     env_file:
       - .env
     ports:
-      - "5859:7860"  # Changed to 5859 to avoid conflict
+      - "9001:7860"  # Changed to 9001 to avoid conflict
     stdin_open: true
     tty: true
 
