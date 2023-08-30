@@ -18,7 +18,7 @@ services:
       - "5859:7860"  # Changed to 5859 to avoid conflict
     stdin_open: true
     tty: true
-    restart: on-failure:0  # Add this line to restart on failure, similar to Weaviate
+    restart: on-failure:1  # Add this line to restart on failure, similar to Weaviate
 
 volumes:
   MUSICGEN_ROOT:
