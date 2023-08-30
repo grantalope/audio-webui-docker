@@ -5,7 +5,7 @@ services:
     runtime: nvidia  # Specify the runtime for NVIDIA
     environment:
       ENABLE_CUDA: '1'  # Enable CUDA
-      NVIDIA_VISIBLE_DEVICES: all  # Add this line
+      NVIDIA_VISIBLE_DEVICES: 1  # Add this line
     volumes:
       - MUSICGEN_ROOT:/app/MUSICGEN_ROOT
       - HF_HOME:/app/HF_HOME
