@@ -1,27 +1,25 @@
-version: '3.8'
+version: '3.3'
 services:
   app:
     build: .
-    runtime: nvidia  # Specify the runtime for NVIDIA
-    environment:
-      ENABLE_CUDA: '1'  # Enable CUDA
-      NVIDIA_VISIBLE_DEVICES: '1' # Add this line
     volumes:
-      - MUSICGEN_ROOT:/app/MUSICGEN_ROOT
-      - HF_HOME:/app/HF_HOME
-      - container_cache:/root/.cache
-      - venv:/app/audio-webui/venv
+      - ./MUSICGEN_ROOT:/app/MUSICGEN_ROOT
+      - ./HF_HOME:/app/HF_HOME
+      - ./.container-cache:/root/.cahce
+      - ./venv:/app/audio-webui/venv
     command: "/app/run.sh"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
     env_file:
       - .env
     ports:
-      - "7860:7860"  # Changed to 5859 to avoid conflict
+      - 7860:7860
     stdin_open: true
     tty: true
-    restart: on-failure:1  # Add this line to restart on failure, similar to Weaviate
-
-volumes:
-  MUSICGEN_ROOT:
-  HF_HOME:
-  container_cache:
-  venv:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
